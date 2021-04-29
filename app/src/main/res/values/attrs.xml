@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BaseTitleView">
+        <!--标题-->
+        <attr name="baseTitle" format="string" />
+        <!--右侧文字-->
+        <attr name="rightText" format="string" />
+        <!--右侧文字-->
+        <attr name="rightTextColor" format="color" />
+        <!--右侧图片-->
+        <attr name="rightImg" format="integer" />
+        <!--是否设置顶部Padding-->
+        <attr name="isTopPadding" format="boolean" />
+    </declare-styleable>
+
+</resources>
