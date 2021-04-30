@@ -8,12 +8,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.example.gricheditor.R
 import com.example.gricheditor.extentions.getStatusBarHeight
 import com.example.gricheditor.extentions.setVisible
+import kotlinx.android.synthetic.main.base_title_layout.view.*
 import org.jetbrains.anko.textColor
 
 /**
@@ -26,19 +24,9 @@ class BaseTitleView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = -1
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    var mRootView: RelativeLayout? = null
-    var backView: ImageView? = null
-    var titleView: TextView? = null
-    var rightTextButton: TextView? = null
-    var rightButton: ImageView? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.base_title_layout, this)
-        backView = findViewById(R.id.ivBack)
-        mRootView = findViewById(R.id.rootView)
-        titleView = findViewById(R.id.tvTitle)
-        rightButton = findViewById(R.id.rightButton)
-        rightTextButton = findViewById(R.id.rightTextButton)
         isTopPadding(true)
         setBackClick { (context as Activity).finish() }
         initAttrbutSet(attrs, defStyleAttr)

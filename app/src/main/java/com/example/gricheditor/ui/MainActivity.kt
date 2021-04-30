@@ -14,6 +14,7 @@ import com.example.gricheditor.ui.adapter.InvitationAdapter
 import com.example.gricheditor.viewmodel.MainVM
 import com.jeremyliao.liveeventbus.LiveEventBus
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.base_title_layout.view.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
 /**

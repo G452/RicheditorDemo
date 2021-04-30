@@ -26,21 +26,22 @@ class SendInvitationActivity : BaseActicity() {
 
     private fun initView() {
         baseTitleView.setRightTextClick { saveInvitation() }
-        richEditor.setPlaceholder("开始你的创作")
+        mGRicheditorView.setPlaceholder("开始你的创作")
+        mGRicheditorView.setEditPadding(16, 16, 16, 16)
     }
 
     private fun saveInvitation() {
         val title = if (titleEditView.text.isNullOrEmpty()) {
-            showToast("标题不能为空哦~")
+            showToast("请输入标题~")
             return
         } else {
             titleEditView.text.toString()
         }
-        val context = if (richEditor.html.isNullOrEmpty()) {
-            showToast("文章不能为空哦~")
+        val context = if (mGRicheditorView.getHtml().isEmpty()) {
+            showToast("请输入正文~")
             return
         } else {
-            richEditor.html.toString()
+            mGRicheditorView.getHtml()
         }
         scope.launch(coroutineExceptionHanlder) {
             val invitationModel = InvitationModel(title, context)
