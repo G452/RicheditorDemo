@@ -18,7 +18,7 @@ import com.example.gricheditor.R
 
 /**
  * author：G
- * time：2021/1/14 15:30
+ * time：2020/1/14 15:30
  * about：状态栏工具
  */
 class UltimateBar {
