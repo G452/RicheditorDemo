@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.util.AttributeSet
-import android.view.LayoutInflater
+import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.example.gricheditor.R
 import com.example.gricheditor.extentions.getStatusBarHeight
-import com.example.gricheditor.extentions.setVisible
-import kotlinx.android.synthetic.main.base_title_layout.view.*
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.singleLine
 import org.jetbrains.anko.textColor
 
 /**
@@ -19,78 +23,153 @@ import org.jetbrains.anko.textColor
  * time：2021/3/2 11:54
  * about：标题
  **/
+@Suppress("DEPRECATION")
 class BaseTitleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = -1
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : RelativeLayout(context, attrs, defStyleAttr) {
+    val backView: ImageView by lazy { initBackView() }
+    val titleView: TextView by lazy { initTitleView() }
+    val rightTextButton: TextView by lazy { initRightTextView() }
+    val rightButton: ImageView by lazy { initRightImgView() }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.base_title_layout, this)
         isTopPadding(true)
         setBackClick { (context as Activity).finish() }
-        initAttrbutSet(attrs, defStyleAttr)
+        initAttributeSet(attrs, defStyleAttr)
     }
 
     @SuppressLint("Recycle", "CustomViewStyleable")
-    private fun initAttrbutSet(attrs: AttributeSet?, defStyleAttr: Int) {
+    private fun initAttributeSet(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
-            context.obtainStyledAttributes(attrs, R.styleable.BaseTitleView, defStyleAttr, 0).let {
-                it.getBoolean(R.styleable.BaseTitleView_isTopPadding, true).let { isTopPadding(it) }
-                it.getString(R.styleable.BaseTitleView_baseTitle)?.let { setTitle(it) }
-                it.getString(R.styleable.BaseTitleView_rightText)
-                    ?.let { if (it.isNotEmpty()) setRightText(it) }
-                it.getInt(R.styleable.BaseTitleView_rightTextColor, Color.parseColor("#333333"))
-                    .let { rightTextButton?.textColor = it }
-                it.getInt(R.styleable.BaseTitleView_rightImg, -1)
-                    .let { if (it != -1) setRightImg(it) }
+            context.obtainStyledAttributes(attrs, R.styleable.BaseTitleView, defStyleAttr, 0).let { attr ->
+                setRightTextColor(attr.getInt(R.styleable.BaseTitleView_rightTextColor, -1))
+                isTopPadding(attr.getBoolean(R.styleable.BaseTitleView_isTopPadding, true))
+                attr.getString(R.styleable.BaseTitleView_baseTitle)?.let { setTitle(it) }
+                attr.getString(R.styleable.BaseTitleView_rightText)?.let { if (it.isNotEmpty()) setRightText(it) }
+                attr.getInt(R.styleable.BaseTitleView_rightImg, -1).let { if (it != -1) setRightImg(it) }
             }
         }
     }
 
     /**
+     * 初始化返回按钮
+     **/
+    private fun initBackView(): ImageView {
+        return ImageView(context).apply {
+            setImageResource(R.drawable.ic_black_back)
+            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                addRule(ALIGN_PARENT_LEFT)
+            }
+            setPadding(context.dip(10), 0, context.dip(10), 0)
+            addView(this, layoutParams)
+        }
+    }
+
+    /**
+     * 初始化标题
+     **/
+    private fun initTitleView(): TextView {
+        return TextView(context).apply {
+            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                rightMargin = 50
+                leftMargin = 50
+                addRule(CENTER_HORIZONTAL)
+            }
+            textColor = Color.parseColor("#333333")
+            gravity = Gravity.CENTER
+            singleLine = true
+            textSize = 18f
+            typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            addView(this, layoutParams)
+        }
+    }
+
+    /**
+     * 初始化右侧图片按钮
+     **/
+    private fun initRightImgView(): ImageView {
+        return ImageView(context).apply {
+            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                addRule(ALIGN_PARENT_RIGHT)
+            }
+            setPadding(context.dip(10), 0, context.dip(16), 0)
+            addView(this, layoutParams)
+        }
+    }
+
+
+    /**
+     * 初始化右侧文字按钮
+     **/
+    private fun initRightTextView(): TextView {
+        return TextView(context).apply {
+            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                addRule(ALIGN_PARENT_RIGHT)
+            }
+            textSize = 18f
+            gravity = Gravity.CENTER
+            textColor = Color.parseColor("#333333")
+            setPadding(context.dip(10), 0, context.dip(16), 0)
+            addView(this, layoutParams)
+        }
+    }
+
+
+    /**
      * 设置标题
      */
     fun setTitle(title: Any) {
-        titleView?.text = title.toString()
+        titleView.text = title.toString()
     }
+
 
     /**
      * 是否设置顶部Padding
      * 默认开启
      */
-    fun isTopPadding(isshow: Boolean) {
-        mRootView?.setPadding(0, if (isshow) context.getStatusBarHeight() else 0, 0, 0)
+    fun isTopPadding(isShow: Boolean) {
+        setPadding(0, if (isShow) context.getStatusBarHeight() else 0, 0, 0)
     }
 
     /**
      * 右侧图片
      */
     fun setRightImg(img: Int) {
-        rightButton?.setVisible(true)
-        rightButton?.setImageResource(img)
+        if (img == -1) return
+        rightButton.setImageResource(img)
     }
 
     /**
      * 右侧文字按钮
      */
     fun setRightText(text: String) {
-        rightTextButton?.setVisible(true)
-        rightTextButton?.text = text
+        rightTextButton.text = text
     }
+
+
+    /**
+     * 设置右侧字体颜色
+     **/
+    private fun setRightTextColor(it: Int) {
+        if (it == -1) return
+        rightTextButton.textColor = it
+    }
+
 
     /**
      * 右侧图片点击
      */
     fun setRightImgClick(click: (View) -> Unit) {
-        rightButton?.setOnClickListener(click)
+        rightButton.setOnClickListener(click)
     }
 
     /**
      * 右侧图片点击
      */
     fun setRightTextClick(click: (View) -> Unit) {
-        rightTextButton?.setOnClickListener(click)
+        rightTextButton.setOnClickListener(click)
     }
 
     /**
@@ -98,7 +177,7 @@ class BaseTitleView @JvmOverloads constructor(
      * 默认是 finish()
      */
     fun setBackClick(click: (View) -> Unit) {
-        backView?.setOnClickListener(click)
+        backView.setOnClickListener(click)
     }
 
     // TODO: 2021/3/2 还需要什么可以在下面拓展

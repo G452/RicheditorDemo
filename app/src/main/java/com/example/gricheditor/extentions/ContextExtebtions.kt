@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Point
 import android.os.Build
 import android.view.WindowManager
-import com.example.gricheditor.constant.INVITATION_DATA
 
 /**
  * author：G
@@ -62,4 +61,10 @@ fun Context.isAllScreenDevice(): Boolean {
         return false
     }
     return false
+}
+
+
+fun Context.dp2px(dip: Int): Int {
+    val scale = this.resources.displayMetrics.density
+    return (dip * scale + 0.5f * if (dip >= 0) 1 else -1).toInt()
 }
