@@ -81,8 +81,8 @@ class GRicheditorView @JvmOverloads constructor(
         mEditor.setPlaceholder(text.toString())
     }
 
-    fun getHtml(): String {
-        return mEditor.html.toString()
+    fun getHtml(): String? {
+        return mEditor.html
     }
 
 

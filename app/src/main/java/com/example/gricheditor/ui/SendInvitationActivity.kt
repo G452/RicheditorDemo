@@ -37,18 +37,18 @@ class SendInvitationActivity : BaseActicity() {
         } else {
             titleEditView.text.toString()
         }
-        val context = if (mGRicheditorView.getHtml().isEmpty()) {
+        if (mGRicheditorView.getHtml().isNullOrEmpty()) {
             showToast("请输入正文~")
             return
-        } else {
-            mGRicheditorView.getHtml()
         }
-        scope.launch(coroutineExceptionHanlder) {
-            val invitationModel = InvitationModel(title, context)
-            CacheListUtil.addData(INVITATION_KEY, invitationModel)
-            LiveEventBus.get(REFRESH_INVITATIONT).post(REFRESH_INVITATIONT)
-            showToast("发布成功")
-            finish()
+        mGRicheditorView.getHtml()?.let {
+            scope.launch(coroutineExceptionHanlder) {
+                val invitationModel = InvitationModel(title, it)
+                CacheListUtil.addData(INVITATION_KEY, invitationModel)
+                LiveEventBus.get(REFRESH_INVITATIONT).post(REFRESH_INVITATIONT)
+                showToast("发布成功")
+                finish()
+            }
         }
     }
 }
