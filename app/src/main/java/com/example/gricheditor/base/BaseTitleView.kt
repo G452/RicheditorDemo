@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gricheditor.R
+import com.example.gricheditor.extentions.dp2px
 import com.example.gricheditor.extentions.getStatusBarHeight
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.singleLine
@@ -28,7 +30,7 @@ class BaseTitleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = -1
-) : RelativeLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
     val backView: ImageView by lazy { initBackView() }
     val titleView: TextView by lazy { initTitleView() }
     val rightTextButton: TextView by lazy { initRightTextView() }
@@ -60,7 +62,8 @@ class BaseTitleView @JvmOverloads constructor(
         return ImageView(context).apply {
             setImageResource(R.drawable.ic_black_back)
             val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                addRule(ALIGN_PARENT_LEFT)
+                topToTop = top
+                leftToLeft = left
             }
             setPadding(context.dip(10), 0, context.dip(10), 0)
             addView(this, layoutParams)
@@ -73,9 +76,12 @@ class BaseTitleView @JvmOverloads constructor(
     private fun initTitleView(): TextView {
         return TextView(context).apply {
             val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                rightMargin = 50
-                leftMargin = 50
-                addRule(CENTER_HORIZONTAL)
+                rightMargin = context.dp2px(50)
+                leftMargin = context.dp2px(50)
+                topToTop = top
+                bottomToBottom = bottom
+                leftToLeft = left
+                rightToRight = right
             }
             textColor = Color.parseColor("#333333")
             gravity = Gravity.CENTER
@@ -92,7 +98,9 @@ class BaseTitleView @JvmOverloads constructor(
     private fun initRightImgView(): ImageView {
         return ImageView(context).apply {
             val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                addRule(ALIGN_PARENT_RIGHT)
+                topToTop = top
+                bottomToBottom = bottom
+                rightToRight = right
             }
             setPadding(context.dip(10), 0, context.dip(16), 0)
             addView(this, layoutParams)
@@ -106,7 +114,9 @@ class BaseTitleView @JvmOverloads constructor(
     private fun initRightTextView(): TextView {
         return TextView(context).apply {
             val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                addRule(ALIGN_PARENT_RIGHT)
+                topToTop = top
+                bottomToBottom = bottom
+                rightToRight = right
             }
             textSize = 18f
             gravity = Gravity.CENTER
