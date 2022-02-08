@@ -5,6 +5,7 @@ import com.example.gricheditor.R
 import com.example.gricheditor.base.BaseActicity
 import com.example.gricheditor.constant.INVITATION_KEY
 import com.example.gricheditor.constant.REFRESH_INVITATIONT
+import com.example.gricheditor.databinding.ActivitySendInvitationBinding
 import com.example.gricheditor.extentions.showToast
 import com.example.gricheditor.model.InvitationModel
 import com.example.gricheditor.util.CacheListUtil
@@ -17,10 +18,9 @@ import kotlinx.coroutines.launch
  * time：2021/4/28 13:51
  * about：
  **/
-class SendInvitationActivity : BaseActicity() {
+class SendInvitationActivity : BaseActicity<ActivitySendInvitationBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_send_invitation)
         initView()
     }
 

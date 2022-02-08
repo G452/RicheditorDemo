@@ -45,13 +45,16 @@ class BaseTitleView @JvmOverloads constructor(
     @SuppressLint("Recycle", "CustomViewStyleable")
     private fun initAttributeSet(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
-            context.obtainStyledAttributes(attrs, R.styleable.BaseTitleView, defStyleAttr, 0).let { attr ->
-                setRightTextColor(attr.getInt(R.styleable.BaseTitleView_rightTextColor, -1))
-                isTopPadding(attr.getBoolean(R.styleable.BaseTitleView_isTopPadding, true))
-                attr.getString(R.styleable.BaseTitleView_baseTitle)?.let { setTitle(it) }
-                attr.getString(R.styleable.BaseTitleView_rightText)?.let { if (it.isNotEmpty()) setRightText(it) }
-                attr.getInt(R.styleable.BaseTitleView_rightImg, -1).let { if (it != -1) setRightImg(it) }
-            }
+            context.obtainStyledAttributes(attrs, R.styleable.BaseTitleView, defStyleAttr, 0)
+                .let { attr ->
+                    setRightTextColor(attr.getInt(R.styleable.BaseTitleView_rightTextColor, -1))
+                    isTopPadding(attr.getBoolean(R.styleable.BaseTitleView_isTopPadding, true))
+                    attr.getString(R.styleable.BaseTitleView_baseTitle)?.let { setTitle(it) }
+                    attr.getString(R.styleable.BaseTitleView_rightText)
+                        ?.let { if (it.isNotEmpty()) setRightText(it) }
+                    attr.getInt(R.styleable.BaseTitleView_rightImg, -1)
+                        .let { if (it != -1) setRightImg(it) }
+                }
         }
     }
 
@@ -61,10 +64,11 @@ class BaseTitleView @JvmOverloads constructor(
     private fun initBackView(): ImageView {
         return ImageView(context).apply {
             setImageResource(R.drawable.ic_black_back)
-            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                topToTop = top
-                leftToLeft = left
-            }
+            val layoutParams =
+                LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                    topToTop = top
+                    leftToLeft = left
+                }
             setPadding(context.dip(10), 0, context.dip(10), 0)
             addView(this, layoutParams)
         }
@@ -75,14 +79,15 @@ class BaseTitleView @JvmOverloads constructor(
      **/
     private fun initTitleView(): TextView {
         return TextView(context).apply {
-            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                rightMargin = context.dp2px(50)
-                leftMargin = context.dp2px(50)
-                topToTop = top
-                bottomToBottom = bottom
-                leftToLeft = left
-                rightToRight = right
-            }
+            val layoutParams =
+                LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                    rightMargin = context.dp2px(50)
+                    leftMargin = context.dp2px(50)
+                    topToTop = top
+                    bottomToBottom = bottom
+                    leftToLeft = left
+                    rightToRight = right
+                }
             textColor = Color.parseColor("#333333")
             gravity = Gravity.CENTER
             singleLine = true
@@ -97,11 +102,12 @@ class BaseTitleView @JvmOverloads constructor(
      **/
     private fun initRightImgView(): ImageView {
         return ImageView(context).apply {
-            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                topToTop = top
-                bottomToBottom = bottom
-                rightToRight = right
-            }
+            val layoutParams =
+                LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                    topToTop = top
+                    bottomToBottom = bottom
+                    rightToRight = right
+                }
             setPadding(context.dip(10), 0, context.dip(16), 0)
             addView(this, layoutParams)
         }
@@ -113,11 +119,12 @@ class BaseTitleView @JvmOverloads constructor(
      **/
     private fun initRightTextView(): TextView {
         return TextView(context).apply {
-            val layoutParams = LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
-                topToTop = top
-                bottomToBottom = bottom
-                rightToRight = right
-            }
+            val layoutParams =
+                LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, context.dip(50)).apply {
+                    topToTop = top
+                    bottomToBottom = bottom
+                    rightToRight = right
+                }
             textSize = 18f
             gravity = Gravity.CENTER
             textColor = Color.parseColor("#333333")

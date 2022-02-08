@@ -21,14 +21,12 @@ import org.jetbrains.anko.sdk27.coroutines.onClick
  * time：2021/4/28 12:14
  * about：
  **/
-class MainActivity : BaseActicity() {
+class MainActivity : BaseActicity<ActivityMainBinding>() {
 
     val viewmodel by lazy { MainVM() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = binding<ActivityMainBinding>(R.layout.activity_main)
-        binding.lifecycleOwner = this
         binding.viewmodel = viewmodel
         viewmodel.initData()
         initView()

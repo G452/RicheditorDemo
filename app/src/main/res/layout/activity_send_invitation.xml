@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.gricheditor.ui.view.CustomLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.SendInvitationActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.gricheditor.base.BaseTitleView
-        android:id="@+id/baseTitleView"
+    <data>
+
+    </data>
+
+    <com.example.gricheditor.ui.view.CustomLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:baseTitle="写文章"
-        app:rightText="发布" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.SendInvitationActivity">
+
+        <com.example.gricheditor.base.BaseTitleView
+            android:id="@+id/baseTitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:baseTitle="写文章"
+            app:rightText="发布" />
 
 
-    <EditText
-        android:id="@+id/titleEditView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@null"
-        android:gravity="center_vertical"
-        android:hint="这个贴子距离火就差就这标题了~"
-        android:imeOptions="actionDone"
-        android:maxLength="10"
-        android:minHeight="50dp"
-        android:singleLine="true"
-        android:textColorHint="#B2B2B2"
-        android:textCursorDrawable="@null"
-        android:textIsSelectable="true"
-        android:textSize="18sp" />
+        <EditText
+            android:id="@+id/titleEditView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="这个贴子距离火就差就这标题了~"
+            android:imeOptions="actionDone"
+            android:maxLength="10"
+            android:minHeight="50dp"
+            android:singleLine="true"
+            android:textColorHint="#B2B2B2"
+            android:textCursorDrawable="@null"
+            android:textIsSelectable="true"
+            android:textSize="18sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#EDF0F2" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#EDF0F2" />
 
-    <com.example.gricheditor.ui.view.GRicheditorView
-        android:id="@+id/mGRicheditorView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <com.example.gricheditor.ui.view.GRicheditorView
+            android:id="@+id/mGRicheditorView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</com.example.gricheditor.ui.view.CustomLinearLayout>
+    </com.example.gricheditor.ui.view.CustomLinearLayout>
+</layout>
